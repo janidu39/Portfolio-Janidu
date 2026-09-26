@@ -82,7 +82,7 @@ tailwind.config = {
   @media (min-width:768px){ .ba { aspect-ratio:16/11; min-height:440px; } }
   @media (min-width:1280px){ .ba { aspect-ratio:16/11.5; min-height:540px; } }
   .ba .layer { position:absolute; inset:0; }
-  .ba .layer img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; }
+  .ba .layer img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#0e0e10; pointer-events:none; }
   .ba .before-layer { overflow:hidden; z-index:2; }
   .ba .clip { position:absolute; inset:0; overflow:hidden; }
   .ba .handle { position:absolute; top:0; bottom:0; z-index:5; width:2px; background:linear-gradient(to bottom, transparent, #E3CD9A 15%, #C9A96A 50%, #E3CD9A 85%, transparent); transform:translateX(-50%); pointer-events:none; }
