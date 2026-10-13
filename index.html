@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Janidu Jayamanna — BIM Modeler | Revit Specialist</title>
+<title>Janidu Jayamanna — BIM Modeler | Revit Drafter & pyRevit Developer</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -47,24 +47,8 @@ tailwind.config = {
   @keyframes spin { to { transform:rotate(360deg); } }
   .ring-dash { position:absolute; inset:0; border-radius:9999px; border:1px dashed rgba(201,169,106,.35); }
 
-  .hero-name { font-size:clamp(2.5rem, 6.4vw, 5.6rem); }
-
-  /* ===== PROFILE SHOWCASE — floating geometric card ===== */
-  .profile-stage { position:relative; perspective:1200px; }
-  .profile-tilt { transform:rotate(-5deg); border-radius:2rem; border:1px solid rgba(201,169,106,.35);
-    background:linear-gradient(150deg, rgba(201,169,106,.10), rgba(19,19,22,.9) 55%);
-    box-shadow:0 40px 80px rgba(0,0,0,.55); }
-  .profile-frame { border-radius:1.4rem; padding:5px;
-    background:linear-gradient(135deg,#9C7A3E 0%,#E3CD9A 30%,#C9A96A 55%,#7a5f30 100%);
-    box-shadow:0 0 60px rgba(201,169,106,.22), 0 24px 60px rgba(0,0,0,.6); }
-  .profile-inner { border-radius:1.15rem; overflow:hidden; position:relative;
-    background:radial-gradient(circle at 30% 22%, #2a2a30 0%, #17171a 60%, #101012 100%); }
-  .profile-inner::after { content:''; position:absolute; inset:0; pointer-events:none;
-    background:linear-gradient(120deg, rgba(255,255,255,.14) 0%, transparent 30%, transparent 70%, rgba(201,169,106,.10) 100%); }
-  .profile-img { width:100%; height:100%; object-fit:cover; display:block; aspect-ratio:1/1.12; }
-  .profile-fallback { width:100%; aspect-ratio:1/1.12; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; }
-  .corner-chip { position:absolute; z-index:5; padding:6px 14px; border-radius:99px; font-size:10px; letter-spacing:.25em;
-    text-transform:uppercase; backdrop-filter:blur(8px); }
+  .avatar-frame { border-radius:2rem; padding:6px; background:conic-gradient(from 180deg, rgba(201,169,106,.15), rgba(201,169,106,.9), rgba(201,169,106,.15)); }
+  .avatar-inner { border-radius:1.7rem; background:radial-gradient(circle at 30% 25%, #26262c 0%, #151517 60%, #0e0e10 100%); box-shadow:inset 0 0 60px rgba(0,0,0,.6), 0 0 80px rgba(201,169,106,.12); overflow:hidden; }
 
   .btn-gold { position:relative; overflow:hidden; isolation:isolate; transition:color .4s ease, letter-spacing .4s ease; }
   .btn-gold::before { content:''; position:absolute; inset:0; z-index:-1; background:linear-gradient(120deg,#E3CD9A,#C9A96A); }
@@ -78,23 +62,30 @@ tailwind.config = {
   .card-lift:hover { transform:translateY(-8px); border-color:rgba(201,169,106,.4); box-shadow:0 24px 50px rgba(0,0,0,.5), 0 0 0 1px rgba(201,169,106,.15); }
 
   /* ===== BEFORE / AFTER COMPARISON ===== */
-  .ba { position:relative; overflow:hidden; user-select:none; touch-action:pan-y; cursor:ew-resize; aspect-ratio:4/3.6; background:#0e0e10; }
-  @media (min-width:768px){ .ba { aspect-ratio:16/11; min-height:440px; } }
-  @media (min-width:1280px){ .ba { aspect-ratio:16/11.5; min-height:540px; } }
+  .ba { position:relative; overflow:hidden; user-select:none; touch-action:pan-y; cursor:ew-resize; aspect-ratio:4/3.1; background:#0e0e10; }
   .ba .layer { position:absolute; inset:0; }
-  .ba .layer img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#0e0e10; pointer-events:none; }
+  .ba .layer img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; }
   .ba .before-layer { overflow:hidden; z-index:2; }
   .ba .clip { position:absolute; inset:0; overflow:hidden; }
   .ba .handle { position:absolute; top:0; bottom:0; z-index:5; width:2px; background:linear-gradient(to bottom, transparent, #E3CD9A 15%, #C9A96A 50%, #E3CD9A 85%, transparent); transform:translateX(-50%); pointer-events:none; }
-  .ba .grip { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:54px; height:54px; border-radius:50%;
+  .ba .grip { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:44px; height:44px; border-radius:50%;
     background:rgba(11,11,13,.85); backdrop-filter:blur(6px); border:1.5px solid #C9A96A; display:flex; align-items:center; justify-content:center;
     box-shadow:0 0 0 6px rgba(201,169,106,.12), 0 8px 24px rgba(0,0,0,.6); color:#E3CD9A; }
-  .ba .tag { position:absolute; top:16px; z-index:4; font-size:11px; letter-spacing:.22em; text-transform:uppercase; padding:7px 16px; border-radius:99px; backdrop-filter:blur(8px); pointer-events:none; }
-  .ba .tag-before { left:16px; background:rgba(11,11,13,.72); border:1px solid rgba(201,169,106,.5); color:#E3CD9A; }
-  .ba .tag-after  { right:16px; background:rgba(201,169,106,.92); color:#0B0B0D; font-weight:700; }
-  .ba .hint { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); z-index:4; font-size:9px; letter-spacing:.25em; text-transform:uppercase; color:rgba(255,255,255,.55); background:rgba(11,11,13,.55); padding:4px 11px; border-radius:99px; pointer-events:none; transition:opacity .5s ease; }
+  .ba .tag { position:absolute; top:12px; z-index:4; font-size:9px; letter-spacing:.22em; text-transform:uppercase; padding:5px 11px; border-radius:99px; backdrop-filter:blur(8px); pointer-events:none; }
+  .ba .tag-before { left:12px; background:rgba(11,11,13,.72); border:1px solid rgba(201,169,106,.5); color:#E3CD9A; }
+  .ba .tag-after  { right:12px; background:rgba(201,169,106,.92); color:#0B0B0D; font-weight:700; }
+  .ba .hint { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); z-index:4; font-size:9px; letter-spacing:.25em; text-transform:uppercase; color:rgba(255,255,255,.55); background:rgba(11,11,13,.55); padding:4px 11px; border-radius:99px; pointer-events:none; transition:opacity .5s ease; }
   .ba.dragged .hint { opacity:0; }
   .ph-art { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; }
+
+  /* ===== pyRevit tool cards ===== */
+  .tool-card { position:relative; overflow:hidden; }
+  .tool-card::before { content:''; position:absolute; top:-60%; left:-60%; width:120%; height:120%;
+    background:radial-gradient(circle, rgba(201,169,106,.14) 0%, transparent 60%); opacity:0; transition:opacity .6s ease; pointer-events:none; }
+  .tool-card:hover::before { opacity:1; }
+  .tool-num { font-family:'Syne',sans-serif; font-weight:800; font-size:3.2rem; line-height:1;
+    -webkit-text-stroke:1px rgba(201,169,106,.4); color:transparent; transition:all .5s ease; }
+  .tool-card:hover .tool-num { color:rgba(201,169,106,.15); -webkit-text-stroke:1px rgba(227,205,154,.7); }
 
   .bar { height:5px; border-radius:99px; background:rgba(255,255,255,.07); overflow:hidden; }
   .bar > span { display:block; height:100%; width:0; border-radius:99px; background:linear-gradient(90deg,#9C7A3E,#C9A96A,#E3CD9A); }
@@ -104,8 +95,8 @@ tailwind.config = {
   .contact-link { transition:color .3s ease, padding-left .3s ease; }
   .contact-link:hover { color:#E3CD9A; padding-left:6px; }
   .rv { opacity:0; transform:translateY(40px); }
+  .proj-card { opacity:1; transform:none; }
 </style>
-<base target="_blank">
 <base target="_blank">
 </head>
 
@@ -120,10 +111,11 @@ tailwind.config = {
 <!-- NAVIGATION -->
 <nav id="nav" class="fixed top-0 inset-x-0 z-50 px-6 lg:px-12 py-5">
   <div class="max-w-7xl mx-auto flex items-center justify-between">
-    <a href="#home" class="font-display text-2xl lg:text-3xl tracking-[.15em] font-extrabold"><span class="gold-grad">JANIDU</span><span class="text-white/80">.BIM</span></a>
-    <div class="hidden md:flex items-center gap-9 text-[13px] tracking-widest uppercase text-white/60">
+    <a href="#home" class="font-display tracking-[.25em] text-sm font-bold"><span class="gold-grad">JANIDU</span><span class="text-white/70">.BIM</span></a>
+    <div class="hidden md:flex items-center gap-8 text-[13px] tracking-widest uppercase text-white/60">
       <a href="#about" class="nav-link hover:text-white">About</a>
       <a href="#skills" class="nav-link hover:text-white">Skills</a>
+      <a href="#automation" class="nav-link hover:text-white">PyRevit</a>
       <a href="#projects" class="nav-link hover:text-white">Projects</a>
       <a href="#experience" class="nav-link hover:text-white">Experience</a>
       <a href="#education" class="nav-link hover:text-white">Education</a>
@@ -134,59 +126,49 @@ tailwind.config = {
     </button>
   </div>
   <div id="mobileMenu" class="md:hidden hidden mt-4 mx-auto max-w-7xl rounded-2xl border border-line bg-coal/95 backdrop-blur-xl p-6 flex flex-col gap-5 text-sm uppercase tracking-widest text-white/70">
-    <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a>
-    <a href="#experience">Experience</a><a href="#education">Education</a><a href="#contact" class="text-gold">Contact</a>
+    <a href="#about">About</a><a href="#skills">Skills</a><a href="#automation" class="text-gold">PyRevit</a><a href="#projects">Projects</a>
+    <a href="#experience">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<header id="home" class="relative min-h-screen flex items-center pt-28 pb-20">
+<header id="home" class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
   <div class="hero-glow w-[520px] h-[520px] bg-gold/10 -top-40 -left-40"></div>
   <div class="hero-glow w-[420px] h-[420px] bg-cyan-500/5 bottom-0 right-0"></div>
-  <div class="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-24 xl:gap-36 items-center relative z-10 w-full">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-16 items-center relative z-10 w-full">
     <div>
       <p class="kicker rv" data-rv>Portfolio — 2026</p>
-      <h1 class="font-display font-extrabold leading-[1.02] mt-6 hero-name rv" data-rv>
+      <h1 class="font-display font-extrabold leading-[1.02] mt-6 text-4xl sm:text-5xl xl:text-6xl rv" data-rv>
         <span class="block text-white">JANIDU</span><span class="block gold-grad">JAYAMANNA</span>
       </h1>
-      <p class="mt-6 text-sm md:text-base tracking-[.3em] uppercase text-white/50 rv" data-rv>BIM Modeler <span class="text-gold mx-2">|</span> Revit Drafter</p>
+      <p class="mt-6 text-sm md:text-base tracking-[.3em] uppercase text-white/50 rv" data-rv>BIM Modeler <span class="text-gold mx-2">|</span> Revit Drafter &amp; pyRevit Developer</p>
       <p class="mt-6 text-mist max-w-lg leading-relaxed text-[15px] rv" data-rv>
         Detail-oriented Quantity Surveying undergraduate with hands-on technical expertise in
-        Building Information Modeling (BIM) and Revit-based architectural drafting.
+        Building Information Modeling (BIM), Revit drafting, and pyRevit automation.
       </p>
       <div class="mt-10 rv" data-rv>
         <a href="#projects" class="btn-gold inline-block text-ink font-bold text-xs tracking-[.2em] uppercase px-8 py-4 rounded-full">View My Work</a>
       </div>
-      <div class="mt-12 flex flex-wrap items-center gap-6 text-white/40 text-xs tracking-widest uppercase rv" data-rv>
+      <div class="mt-12 flex items-center gap-6 text-white/40 text-xs tracking-widest uppercase rv" data-rv>
         <span class="w-10 h-px bg-white/20"></span>
         <a href="https://linkedin.com/in/janidujayamanna-9152132b4" target="_blank" class="hover:text-gold transition-colors">LinkedIn</a>
         <a href="mailto:shamodjanidu6439@gmail.com" class="hover:text-gold transition-colors">Email</a>
       </div>
     </div>
-
-    <!-- PROFILE SHOWCASE -->
-    <div class="relative flex justify-center lg:justify-end rv" data-rv>
-      <div class="absolute w-[380px] h-[380px] max-w-[80vw] rounded-full spin-slow"><div class="ring-dash"></div></div>
-      <div class="absolute w-[440px] h-[440px] max-w-[86vw] rounded-full border border-white/5"></div>
-      <div class="profile-stage float-slow">
-        <!-- Geometric tilted backing card -->
-        <div class="profile-tilt absolute -inset-5 sm:-inset-7"></div>
-        <!-- Metallic gold frame + real <img> container -->
-        <div class="profile-frame relative w-64 h-auto sm:w-80">
-          <div class="profile-inner">
-            <!-- To use your photo: save it as profile.jpg next to this file, or change the src below -->
-            <img src="janidu-profile.jpg" alt="Janidu Jayamanna" class="profile-img" style="object-position: top;"
-                 onerror="this.style.display='none';document.getElementById('profileFallback').style.display='flex';">
-            <div id="profileFallback" class="profile-fallback" style="display:none;">
-              <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.2" class="opacity-80"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"/></svg>
-              <span class="font-display font-bold text-xl gold-grad tracking-widest">J J</span>
-              <span class="text-[10px] tracking-[.3em] uppercase text-white/35">Add janidu-profile.jpg</span>
-            </div>
+    <div class="relative flex justify-center rv" data-rv>
+      <div class="absolute w-[420px] h-[420px] rounded-full spin-slow"><div class="ring-dash"></div></div>
+      <div class="absolute w-[490px] h-[490px] rounded-full border border-white/5"></div>
+      <div class="float-slow relative">
+        <div class="avatar-frame w-72 h-80 sm:w-80 sm:h-96">
+          <div class="avatar-inner w-full h-full flex flex-col items-center justify-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.2" class="opacity-80"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"/></svg>
+            <span class="font-display font-bold text-xl gold-grad tracking-widest">J J</span>
+            <span class="text-[10px] tracking-[.3em] uppercase text-white/35">Profile Photo</span>
           </div>
         </div>
-        <span class="corner-chip left-0 sm:-left-2 top-8 bg-smoke/85 border border-gold/40 text-gold float-slow" style="animation-delay:-2s;">AUTODESK REVIT</span>
-        <span class="corner-chip right-0 sm:-right-2 bottom-10 bg-smoke/85 border border-line text-white/60 float-slow" style="animation-delay:-4s;">BIM · 3D · FACADE</span>
       </div>
+      <div class="absolute -left-2 top-10 hidden sm:block px-4 py-2 rounded-xl bg-smoke/80 border border-line backdrop-blur text-xs tracking-widest text-gold float-slow" style="animation-delay:-2s">AUTODESK REVIT</div>
+      <div class="absolute -right-2 bottom-16 hidden sm:block px-4 py-2 rounded-xl bg-smoke/80 border border-line backdrop-blur text-xs tracking-widest text-white/60 float-slow" style="animation-delay:-4s">PYTHON · pyREVIT · API</div>
     </div>
   </div>
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30">
@@ -198,8 +180,8 @@ tailwind.config = {
 <!-- MARQUEE -->
 <div class="border-y border-line py-5 overflow-hidden bg-coal/50">
   <div class="marquee font-display text-sm tracking-[.35em] uppercase text-white/35">
-    <span>Revit Architecture</span><span class="text-gold">✦</span><span>Facade Design</span><span class="text-gold">✦</span><span>Model In-Place</span><span class="text-gold">✦</span><span>Revit Families</span><span class="text-gold">✦</span><span>AutoCAD Drafting</span><span class="text-gold">✦</span><span>MEP Awareness</span><span class="text-gold">✦</span><span>Web Development</span><span class="text-gold">✦</span><span>AI Integration</span><span class="text-gold">✦</span>
-    <span>Revit Architecture</span><span class="text-gold">✦</span><span>Facade Design</span><span class="text-gold">✦</span><span>Model In-Place</span><span class="text-gold">✦</span><span>Revit Families</span><span class="text-gold">✦</span><span>AutoCAD Drafting</span><span class="text-gold">✦</span><span>MEP Awareness</span><span class="text-gold">✦</span><span>Web Development</span><span class="text-gold">✦</span><span>AI Integration</span><span class="text-gold">✦</span>
+    <span>Revit Architecture</span><span class="text-gold">✦</span><span>pyRevit Automation</span><span class="text-gold">✦</span><span>Python</span><span class="text-gold">✦</span><span>Revit API</span><span class="text-gold">✦</span><span>Facade Design</span><span class="text-gold">✦</span><span>Model In-Place</span><span class="text-gold">✦</span><span>Revit Families</span><span class="text-gold">✦</span><span>AutoCAD Drafting</span><span class="text-gold">✦</span><span>MEP Awareness</span><span class="text-gold">✦</span>
+    <span>Revit Architecture</span><span class="text-gold">✦</span><span>pyRevit Automation</span><span class="text-gold">✦</span><span>Python</span><span class="text-gold">✦</span><span>Revit API</span><span class="text-gold">✦</span><span>Facade Design</span><span class="text-gold">✦</span><span>Model In-Place</span><span class="text-gold">✦</span><span>Revit Families</span><span class="text-gold">✦</span><span>AutoCAD Drafting</span><span class="text-gold">✦</span><span>MEP Awareness</span><span class="text-gold">✦</span>
   </div>
 </div>
 
@@ -211,7 +193,7 @@ tailwind.config = {
       <h2 class="font-display text-4xl md:text-5xl font-bold mt-6 leading-tight rv" data-rv>Precision in every <span class="gold-grad">detail.</span></h2>
       <div class="mt-10 grid grid-cols-3 gap-4 rv" data-rv>
         <div class="card-lift rounded-2xl border border-line bg-coal p-5 text-center"><div class="font-display text-3xl font-bold gold-grad">3+</div><div class="text-[11px] tracking-widest uppercase text-white/40 mt-2">Months MEP<br>Experience</div></div>
-        <div class="card-lift rounded-2xl border border-line bg-coal p-5 text-center"><div class="font-display text-3xl font-bold gold-grad">18</div><div class="text-[11px] tracking-widest uppercase text-white/40 mt-2">Modeled<br>Projects</div></div>
+        <div class="card-lift rounded-2xl border border-line bg-coal p-5 text-center"><div class="font-display text-3xl font-bold gold-grad">29</div><div class="text-[11px] tracking-widest uppercase text-white/40 mt-2">Modeled<br>Projects</div></div>
         <div class="card-lift rounded-2xl border border-line bg-coal p-5 text-center"><div class="font-display text-3xl font-bold gold-grad">5+</div><div class="text-[11px] tracking-widest uppercase text-white/40 mt-2">Certifications<br>& Diplomas</div></div>
       </div>
     </div>
@@ -242,8 +224,7 @@ tailwind.config = {
   <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
     <p class="kicker rv" data-rv>02 — Technical Skills</p>
     <h2 class="font-display text-4xl md:text-5xl font-bold mt-6 rv" data-rv>Tools of the <span class="gold-grad">trade.</span></h2>
-    <div class="mt-16 grid md:grid-cols-2 gap-6">
-
+    <div class="mt-16 grid md:grid-cols-3 gap-6">
       <div class="card-lift rounded-3xl border border-line bg-ink/70 p-8 rv" data-rv>
         <div class="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/25 flex items-center justify-center mb-6"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
         <h3 class="font-display font-bold text-lg">Revit &amp; BIM</h3>
@@ -251,11 +232,10 @@ tailwind.config = {
         <div class="space-y-5">
           <div><div class="flex justify-between text-sm mb-2"><span>Revit Architecture</span><span class="text-gold text-xs">95%</span></div><div class="bar"><span data-w="95"></span></div></div>
           <div><div class="flex justify-between text-sm mb-2"><span>Facade Design</span><span class="text-gold text-xs">90%</span></div><div class="bar"><span data-w="90"></span></div></div>
+          <div><div class="flex justify-between text-sm mb-2"><span>pyRevit Automation</span><span class="text-gold text-xs">85%</span></div><div class="bar"><span data-w="85"></span></div></div>
           <div><div class="flex justify-between text-sm mb-2"><span>Revit Families</span><span class="text-gold text-xs">88%</span></div><div class="bar"><span data-w="88"></span></div></div>
-          <div><div class="flex justify-between text-sm mb-2"><span>Model In-Place</span><span class="text-gold text-xs">92%</span></div><div class="bar"><span data-w="92"></span></div></div>
         </div>
       </div>
-
       <div class="card-lift rounded-3xl border border-line bg-ink/70 p-8 rv" data-rv>
         <div class="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/25 flex items-center justify-center mb-6"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.5"><path d="M4 20V4m0 16h16M8 16l3-6 3 3 4-8"/></svg></div>
         <h3 class="font-display font-bold text-lg">Engineering &amp; Drafting</h3>
@@ -266,37 +246,134 @@ tailwind.config = {
           <div><div class="flex justify-between text-sm mb-2"><span>Construction Documentation</span><span class="text-gold text-xs">82%</span></div><div class="bar"><span data-w="82"></span></div></div>
         </div>
       </div>
-
       <div class="card-lift rounded-3xl border border-line bg-ink/70 p-8 rv" data-rv>
-        <div class="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/25 flex items-center justify-center mb-6"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.5"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6M13 4l-2 16"/></svg></div>
-        <h3 class="font-display font-bold text-lg">Web Development &amp; AI</h3>
-        <p class="text-xs text-white/40 mt-1 mb-7 uppercase tracking-widest">Modern Digital Stack</p>
+        <div class="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/25 flex items-center justify-center mb-6"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.5"><path d="M8 9l-4 3 4 3m8-6l4 3-4 3M14 5l-4 14"/></svg></div>
+        <h3 class="font-display font-bold text-lg">Automation &amp; Code</h3>
+        <p class="text-xs text-white/40 mt-1 mb-7 uppercase tracking-widest">Workflow Accelerators</p>
         <div class="space-y-5">
-          <div><div class="flex justify-between text-sm mb-2"><span>Website Development Coding</span><span class="text-gold text-xs">85%</span></div><div class="bar"><span data-w="85"></span></div></div>
-          <div><div class="flex justify-between text-sm mb-2"><span>AI Integration &amp; Prompt Engineering</span><span class="text-gold text-xs">80%</span></div><div class="bar"><span data-w="80"></span></div></div>
+          <div><div class="flex justify-between text-sm mb-2"><span>Python</span><span class="text-gold text-xs">80%</span></div><div class="bar"><span data-w="80"></span></div></div>
+          <div><div class="flex justify-between text-sm mb-2"><span>pyRevit</span><span class="text-gold text-xs">85%</span></div><div class="bar"><span data-w="85"></span></div></div>
+          <div><div class="flex justify-between text-sm mb-2"><span>Revit API</span><span class="text-gold text-xs">75%</span></div><div class="bar"><span data-w="75"></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= pyREVIT & BIM AUTOMATION ================= -->
+<section id="automation" class="py-28 relative overflow-hidden">
+  <div class="hero-glow w-[460px] h-[460px] bg-cyan-500/5 top-20 -right-40"></div>
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="kicker rv" data-rv>03 — PyRevit</p>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mt-6 rv" data-rv>PyRevit &amp; <span class="gold-grad">BIM Automation</span></h2>
+      </div>
+      <p class="text-mist max-w-md text-sm leading-relaxed rv" data-rv>
+        Vibe coding with Python, pyRevit, and the Revit API — creating custom tools that turn
+        hours of tedious modeling into a single click, automating repetitive tasks, and bridging BIM with Quantity Surveying.
+      </p>
+    </div>
+
+    <div class="mt-14 grid sm:grid-cols-2 gap-6">
+      <!-- TOOL 1: Auto Grid -->
+      <div class="tool-card card-lift rounded-3xl border border-line bg-coal p-8 rv" data-rv>
+        <div class="flex items-start justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/25 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.5"><path d="M3 3v18M9 3v18M15 3v18M21 3v18M3 3h18M3 9h18M3 15h18M3 21h18"/></svg>
+          </div>
+          <span class="tool-num">01</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mt-6">Auto Grid</h3>
+        <p class="text-mist text-sm mt-3 leading-relaxed">A custom pyRevit automation tool designed to automatically generate and align structural grids along the X and Y axes based on predefined parameters[cite: 6].</p>
+        <ul class="mt-4 space-y-2 text-xs text-white/60">
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Rapid Setup:</strong> Eliminates the tedious, manual, grid-by-grid placement and alignment process[cite: 6].</li>
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Error-Free Precision:</strong> Ensures 100% accuracy in grid spacing and naming conventions, preventing human drafting mistakes[cite: 6].</li>
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>1-Click Workflow:</strong> Instantly provisions the baseline grid network for the entire project with a single click[cite: 6].</li>
+        </ul>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[10px] tracking-widest uppercase text-white/50">Python</span>
+          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[10px] tracking-widest uppercase text-white/50">Revit API</span>
+          <span class="px-3 py-1 rounded-full bg-smoke border border-gold/30 text-[10px] tracking-widest uppercase text-gold">1-Click Setup</span>
         </div>
       </div>
 
-      <div class="card-lift rounded-3xl border border-line bg-ink/70 p-8 rv" data-rv>
-        <div class="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/25 flex items-center justify-center mb-6"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.5"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <h3 class="font-display font-bold text-lg">Software</h3>
-        <p class="text-xs text-white/40 mt-1 mb-7 uppercase tracking-widest">Productivity Suite</p>
-        <div class="space-y-5">
-          <div><div class="flex justify-between text-sm mb-2"><span>Google Workspace</span><span class="text-gold text-xs">95%</span></div><div class="bar"><span data-w="95"></span></div></div>
-          <div><div class="flex justify-between text-sm mb-2"><span>MS Office Suite</span><span class="text-gold text-xs">90%</span></div><div class="bar"><span data-w="90"></span></div></div>
+      <!-- TOOL 2: Wall Count -->
+      <div class="tool-card card-lift rounded-3xl border border-line bg-coal p-8 rv" data-rv>
+        <div class="flex items-start justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/25 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.5"><path d="M3 21h18M5 21V4h14v17M9 8h2m2 0h2M9 12h2m2 0h2M9 16h2m2 0h2"/></svg>
+          </div>
+          <span class="tool-num">02</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mt-6">Wall Count</h3>
+        <p class="text-mist text-sm mt-3 leading-relaxed">A specialized Quantity Surveying (QS) and takeoff tool that instantly counts, classifies, and schedules exterior and interior walls[cite: 6].</p>
+        <ul class="mt-4 space-y-2 text-xs text-white/60">
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Massive Time Savings:</strong> Compresses hours of manual wall takeoffs into mere seconds[cite: 6].</li>
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Zero Missed Elements:</strong> Completely eliminates human counting errors, double-counts, or omitted walls[cite: 6].</li>
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Instant Classification:</strong> Automatically categorizes walls based on type, thickness, and location for immediate scheduling[cite: 6].</li>
+        </ul>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[10px] tracking-widest uppercase text-white/50">QS Takeoff</span>
+          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[10px] tracking-widest uppercase text-white/50">Scheduling</span>
+          <span class="px-3 py-1 rounded-full bg-smoke border border-gold/30 text-[10px] tracking-widest uppercase text-gold">Instant Count</span>
         </div>
       </div>
 
+      <!-- TOOL 3: Auto Dimensions -->
+      <div class="tool-card card-lift rounded-3xl border border-line bg-coal p-8 rv" data-rv>
+        <div class="flex items-start justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/25 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.5"><path d="M3 8h18M3 16h18M7 5v6m10 2v6"/><path d="M3 5l2 3-2 3m18 4l2 3-2 3" stroke-width="1.2"/></svg>
+          </div>
+          <span class="tool-num">03</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mt-6">Auto Dimensions</h3>
+        <p class="text-mist text-sm mt-3 leading-relaxed">An automated drafting tool that instantly places clean, structured string dimensions across floor plans[cite: 6].</p>
+        <ul class="mt-4 space-y-2 text-xs text-white/60">
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>80% Reduction in Drafting Time:</strong> Cuts out hours of manual dimensioning work[cite: 6].</li>
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Consistent Standards:</strong> Eliminates style variations between sheets caused by manual detailing, maintaining a uniform annotation standard[cite: 6].</li>
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Clean Presentations:</strong> Delivers professional, publication-ready floor plan layouts instantly[cite: 6].</li>
+        </ul>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[10px] tracking-widest uppercase text-white/50">Floor Plans</span>
+          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[10px] tracking-widest uppercase text-white/50">String Dim</span>
+          <span class="px-3 py-1 rounded-full bg-smoke border border-gold/30 text-[10px] tracking-widest uppercase text-gold">Drafting Time −80%</span>
+        </div>
+      </div>
+
+      <!-- TOOL 4: Auto Join Geometry -->
+      <div class="tool-card card-lift rounded-3xl border border-line bg-coal p-8 rv" data-rv>
+        <div class="flex items-start justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/25 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96A" stroke-width="1.5"><path d="M8 3H3v5m0 0l8 8m-8-8l8-8M16 21h5v-5m0 0l-8-8m8 8l-8 8"/></svg>
+          </div>
+          <span class="tool-num">04</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mt-6">Auto Join Geometry</h3>
+        <p class="text-mist text-sm mt-3 leading-relaxed">A robust BIM model cleanup tool that bulk-joins intersecting walls, floors, columns, and structural framing elements[cite: 6].</p>
+        <ul class="mt-4 space-y-2 text-xs text-white/60">
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Seconds Instead of Hours:</strong> Slashes manual joining time down to mere seconds, removing hours of tedious mouse-clicking[cite: 6].</li>
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Accurate BOQ:</strong> Resolves overlapping geometry properly, preventing double-counting of materials to ensure 100% accurate bills of quantities[cite: 6].</li>
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Intelligent Triage:</strong> Separates Revit interference noise into clean categories, isolating genuine geometric clashes[cite: 6].</li>
+          <li class="flex gap-2"><span class="text-gold">▪</span> <strong>Conflict-Free Batch Execution:</strong> Leverages IFailuresPreprocessor and SubTransaction logic to silently suppress error pop-ups and isolate failing pairs[cite: 6].</li>
+        </ul>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[10px] tracking-widest uppercase text-white/50">Bulk Join</span>
+          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[10px] tracking-widest uppercase text-white/50">Model Cleanup</span>
+          <span class="px-3 py-1 rounded-full bg-smoke border border-gold/30 text-[10px] tracking-widest uppercase text-gold">Conflict-Free</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ================= MODEL - REALITY ================= -->
-<section id="projects" class="py-28">
+<section id="projects" class="py-28 bg-coal/40 border-y border-line">
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <div class="flex flex-wrap items-end justify-between gap-6">
       <div>
-        <p class="kicker rv" data-rv>03 — Portfolio</p>
+        <p class="kicker rv" data-rv>04 — Portfolio</p>
         <h2 class="font-display text-4xl md:text-5xl font-bold mt-6 rv" data-rv>Model - <span class="gold-grad">Reality</span></h2>
       </div>
       <p class="text-mist max-w-sm text-sm rv" data-rv>Drag the golden divider on each project to compare the <span class="text-goldL">Revit 3D Model</span> with the <span class="text-goldL">Final Render</span>.</p>
@@ -306,17 +383,15 @@ tailwind.config = {
     <div id="filters" class="mt-10 flex flex-wrap gap-3 rv" data-rv></div>
 
     <!-- Grid (cards injected by JS) -->
-    <div id="projGrid" class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 xl:gap-12"></div>
-
-  
+    <div id="projGrid" class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience" class="py-28 bg-coal/40 border-y border-line relative overflow-hidden">
+<section id="experience" class="py-28 relative overflow-hidden">
   <div class="hero-glow w-[380px] h-[380px] bg-gold/5 bottom-0 left-0"></div>
   <div class="max-w-5xl mx-auto px-6 lg:px-12 relative z-10">
-    <p class="kicker rv" data-rv>04 — Experience</p>
+    <p class="kicker rv" data-rv>05 — Experience</p>
     <h2 class="font-display text-4xl md:text-5xl font-bold mt-6 rv" data-rv>Industry <span class="gold-grad">exposure.</span></h2>
     <div class="mt-14 border-l border-gold/25 ml-2 pl-10 space-y-14">
       <div class="relative rv" data-rv>
@@ -329,20 +404,15 @@ tailwind.config = {
           <li class="flex gap-3"><span class="text-gold mt-1">▸</span> Maintained AMC (Annual Maintenance Contract) data records and databases.</li>
           <li class="flex gap-3"><span class="text-gold mt-1">▸</span> Operated the DIGI Pay digital management system for workflow coordination.</li>
         </ul>
-        <div class="mt-5 flex flex-wrap gap-2">
-          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[11px] tracking-widest uppercase text-white/50">MEP Docs</span>
-          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[11px] tracking-widest uppercase text-white/50">AMC Data</span>
-          <span class="px-3 py-1 rounded-full bg-smoke border border-line text-[11px] tracking-widest uppercase text-white/50">DIGI Pay</span>
-        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- EDUCATION & CERTIFICATIONS -->
-<section id="education" class="py-28">
+<section id="education" class="py-28 bg-coal/40 border-y border-line">
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
-    <p class="kicker rv" data-rv>05 — Education &amp; Certifications</p>
+    <p class="kicker rv" data-rv>06 — Education &amp; Certifications</p>
     <h2 class="font-display text-4xl md:text-5xl font-bold mt-6 rv" data-rv>Learning <span class="gold-grad">journey.</span></h2>
     <div class="mt-14 grid lg:grid-cols-2 gap-6">
       <div class="card-lift rounded-3xl border border-line bg-coal p-8 lg:p-10 rv" data-rv>
@@ -367,23 +437,6 @@ tailwind.config = {
         </div>
       </div>
     </div>
-    <div class="mt-6 grid md:grid-cols-2 gap-6">
-      <div class="rounded-3xl border border-line bg-coal/60 p-8 rv" data-rv>
-        <h3 class="font-display font-bold text-lg mb-6 flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_#34d399]"></span> Completed Certifications</h3>
-        <ul class="space-y-4 text-mist text-[15px]">
-          <li class="flex justify-between gap-4 border-b border-line pb-4"><span>Google Data Analytics — Foundations of Data</span><span class="text-emerald-400/80 text-xs uppercase tracking-widest shrink-0">Done</span></li>
-          <li class="flex justify-between gap-4 border-b border-line pb-4"><span>Google Data Analytics — Asking Questions</span><span class="text-emerald-400/80 text-xs uppercase tracking-widest shrink-0">Done</span></li>
-          <li class="flex justify-between gap-4"><span>Google Data Analytics — MS Excel</span><span class="text-emerald-400/80 text-xs uppercase tracking-widest shrink-0">Done</span></li>
-        </ul>
-      </div>
-      <div class="rounded-3xl border border-line bg-coal/60 p-8 rv" data-rv>
-        <h3 class="font-display font-bold text-lg mb-6 flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-gold shadow-[0_0_12px_#C9A96A] animate-pulse"></span> Pending Certifications</h3>
-        <ul class="space-y-4 text-mist text-[15px]">
-          <li class="flex justify-between gap-4 border-b border-line pb-4"><span>Generative AI Fundamentals</span><span class="text-gold text-xs uppercase tracking-widest shrink-0">Pending</span></li>
-          <li class="flex justify-between gap-4"><span>Design &amp; Integrate CCTV Systems Using AutoCAD</span><span class="text-gold text-xs uppercase tracking-widest shrink-0">Pending</span></li>
-        </ul>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -392,8 +445,8 @@ tailwind.config = {
   <div class="hero-glow w-[600px] h-[300px] bg-gold/10 -top-20 left-1/2 -translate-x-1/2"></div>
   <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
     <div class="text-center">
-      <p class="kicker rv" data-rv style="justify-content:center">06 — Contact</p>
-      <h2 class="font-display text-4xl sm:text-5xl md:text-7xl font-extrabold mt-6 leading-tight rv" data-rv>Let's build<br><span class="gold-grad">something precise.</span></h2>
+      <p class="kicker rv" data-rv style="justify-content:center">07 — Contact</p>
+      <h2 class="font-display text-5xl md:text-7xl font-extrabold mt-6 rv" data-rv>Let's build<br><span class="gold-grad">something precise.</span></h2>
       <a href="mailto:shamodjanidu6439@gmail.com" class="inline-block btn-gold text-ink font-bold text-xs tracking-[.2em] uppercase px-10 py-4 rounded-full mt-10 rv" data-rv>Start a Conversation</a>
     </div>
     <div class="mt-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -411,56 +464,74 @@ tailwind.config = {
 
 <!-- SCRIPTS -->
 <script>
-/* ================================================================
-   PROJECT DATA — edit this list to add/rename projects.
-   Optional: set imgBefore (Revit screenshot) & imgAfter (render)
-   to replace the gradient placeholders with real images.
-================================================================ */
 const PROJECTS = [
-  { cat:'Kitchen',     title:'Kitchen Interior Design',       variant:1, icon:'M4 3h16M6 3v7a2 2 0 002 2h8a2 2 0 002-2V3M8 21h8M12 12v9', imgBefore: 'kitchen 1 before.jpg', imgAfter: 'kitchen 1 after.jpg' },
-  { cat:'Kitchen',     title:'Kitchen Interior Design',       variant:2, icon:'M4 3h16M6 3v7a2 2 0 002 2h8a2 2 0 002-2V3M8 21h8M12 12v9', imgBefore: 'kitchen 2 before.jpg', imgAfter: 'Kitchen 2 after.jpg' },
-  { cat:'Living Room', title:'Living Room Interior Design',    variant:1, icon:'M5 11V8a3 3 0 0013-3h8a3 3 0 013 3v3M3 18h18v2H3zM6 18v-4m12 4v-4', imgBefore: 'living room before.jpg', imgAfter: 'living room after.jpg' },
-  { cat:'Bedroom',     title:'Bedroom Design',                variant:1, icon:'M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3', imgBefore: 'Bed room Before.jpg', imgAfter: 'Bed room After.jpg' },
-  { cat:'Office',      title:'Office Room Design',            variant:1, icon:'M4 21h16M6 21V4h12v17M9 8h2m2 0h2M9 12h2m2 0h2M9 16h2m2 0h2', imgBefore: 'office 1 before.jpg', imgAfter: 'office 1 after.jpg' },
-  { cat:'Office',      title:'Office Room Design',            variant:2, icon:'M4 21h16M6 21V4h12v17M9 8h2m2 0h2M9 12h2m2 0h2M9 16h2m2 0h2', imgBefore: 'office 2 before.jpg', imgAfter: 'office 2 after.jpg' },
-  { cat:'Staircase',    title:'Staircase Model In-Place',       variant:1, icon:'M3 21h4v-4h4v9H4V5h2', imgBefore: 'staircase 1 before.jpg', imgAfter: 'staircase 1 after.jpg' },
-  { cat:'Staircase',    title:'Staircase Model In-Place',       variant:2, icon:'M3 21h4v-4h4v9H4V5h2', imgBefore: 'handrail before.jpg', imgAfter: 'handrail after.jpg' },
-  { cat:'Staircase',    title:'Staircase Model In-Place',       variant:3, icon:'M3 21h4v-4h4v9H4V5h2', imgBefore: 'step before (2).jpg', imgAfter: 'step after.jpg' },
-  { cat:'Facade',      title:'Facade Design',                 variant:1, icon:'M4 21V3h16v18M8 7h2m4 0h2M8 11h2m4 0h2M8 15h2m4 0h2', imgBefore: 'Facade Before.jpg', imgAfter: 'Facade After.jpg' },
-  { cat:'Building',     title:'3-Story Building Project',       variant:1, icon:'M4 21h16M6 21V5h12v16M6 9h12M6 13h12M10 21v-3h4v3', imgBefore: '3 Story Before.jpg', imgAfter: '3 story After.jpg' },
-  { cat:'Building',     title:'2-Story Building Project',       variant:2, icon:'M4 21h16M6 21V5h12v16M6 9h12M6 13h12M10 21v-3h4v3', imgBefore: 'pavara before.jpg', imgAfter: 'pavara after.jpg' },
-  { cat:'Building',     title:'2-Story Building Project',       variant:3, icon:'M4 21h16M6 21V5h12v16M6 9h12M6 13h12M10 21v-3h4v3', imgBefore: 'situni before.jpg', imgAfter: 'situni after.jpg' },
-  { cat:'Building',     title:'2-Story Building Project',       variant:4, icon:'M4 21h16M6 21V5h12v16M6 9h12M6 13h12M10 21v-3h4v3', imgBefore: 'pathum before.jpg', imgAfter: 'pathum after.jpg' },
-  { cat:'Ceiling',     title:'Ceiling Design',                variant:1, icon:'M3 3h18M5 3v4h14V3M8 7v3m4-3v3m4-3v3M3 21h18', imgBefore: 'Celing 1 Before.jpg', imgAfter: 'Celing 1 After.jpg' },
-  { cat:'Ceiling',     title:'Ceiling Design',                variant:2, icon:'M3 3h18M5 3v4h14V3M8 7v3m4-3v3m4-3v3M3 21h18', imgBefore: 'Celing 2 before.jpg', imgAfter: 'Celing 2 after.jpg' },
-  { cat:'Furniture',    title:'Furniture Design',               variant:1, icon:'M5 11V7a3 3 0 00-6 0v4m-8 0h12a2 2 0 012 2v5H3V5-5a2 2 0 012-2zm5 18v2m14-2v2', imgBefore: 'Sofa Before.jpg', imgAfter: 'Sofa after.jpg' },
-  { cat:'Door',        title:'Door Design',                   variant:1, icon:'M6 21V4a1 1 0 011-1h10a1 1 0 011 1v17M14.5 12h.01M6 21h12', imgBefore: 'Door Before.jpg', imgAfter: 'Door after.jpg' },
+  /* ---------- ORIGINAL 18 PROJECTS WITH EXACT GITHUB FILENAMES ---------- */
+  { cat:'Kitchen',      title:'Kitchen Interior Design',     variant:1, imgBefore: 'kitchen 1 before.jpg', imgAfter: 'kitchen 1 after.jpg', icon:'M4 3h16M6 3v7a2 2 0 002 2h8a2 2 0 002-2V3M8 21h8M12 12v9' },
+  { cat:'Kitchen',      title:'Kitchen Interior Design',     variant:2, imgBefore: 'kitchen 2 before.jpg', imgAfter: 'Kitchen 2 after.jpg', icon:'M4 3h16M6 3v7a2 2 0 002 2h8a2 2 0 002-2V3M8 21h8M12 12v9' },
+  { cat:'Living Room',  title:'Living Room Interior Design', variant:1, imgBefore: 'living room before.jpg', imgAfter: 'living room after.jpg', icon:'M5 11V8a3 3 0 013-3h8a3 3 0 013 3v3M3 18h18v2H3zM6 18v-4m12 4v-4' },
+  { cat:'Bedroom',      title:'Bedroom Design',              variant:1, imgBefore: 'Bed room Before.jpg', imgAfter: 'Bed room After.jpg', icon:'M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3' },
+  { cat:'Office',       title:'Office Room Design',          variant:1, imgBefore: 'office 1 before.jpg', imgAfter: 'office 1 after.jpg', icon:'M4 21h16M6 21V4h12v17M9 8h2m2 0h2M9 12h2m2 0h2M9 16h2m2 0h2' },
+  { cat:'Office',       title:'Office Room Design',          variant:2, imgBefore: 'office 2 before.jpg', imgAfter: 'office 2 after.jpg', icon:'M4 21h16M6 21V4h12v17M9 8h2m2 0h2M9 12h2m2 0h2M9 16h2m2 0h2' },
+  { cat:'Staircase',    title:'Staircase Model In-Place',    variant:1, imgBefore: 'staircase 1 before.jpg', imgAfter: 'staircase 1 after.jpg', icon:'M3 21h4v-4h4v-4h4V9h4V5h2' },
+  { cat:'Staircase',    title:'Staircase Model In-Place',    variant:2, imgBefore: 'handrail before.jpg', imgAfter: 'handrail after.jpg', icon:'M3 21h4v-4h4v-4h4V9h4V5h2' },
+  { cat:'Staircase',    title:'Staircase Model In-Place',    variant:3, imgBefore: 'step before (2).jpg', imgAfter: 'step after.jpg', icon:'M3 21h4v-4h4v-4h4V9h4V5h2' },
+  { cat:'Facade',       title:'Facade Design',               variant:1, imgBefore: 'Facade Before.jpg', imgAfter: 'Facade After.jpg', icon:'M4 21V3h16v18M8 7h2m4 0h2M8 11h2m4 0h2M8 15h2m4 0h2' },
+  { cat:'Building',     title:'3-Story Building Project',    variant:1, imgBefore: '3 Story Before.jpg', imgAfter: '3 story After.jpg', icon:'M4 21h16M6 21V5h12v16M6 9h12M6 13h12M10 21v-3h4v3' },
+  { cat:'Building',     title:'2-Story Building Project',    variant:2, imgBefore: 'pavara before.jpg', imgAfter: 'pavara after.jpg', icon:'M4 21h16M6 21V5h12v16M6 9h12M6 13h12M10 21v-3h4v3' },
+  { cat:'Building',     title:'2-Story Building Project',    variant:3, imgBefore: 'situni before.jpg', imgAfter: 'situni after.jpg', icon:'M4 21h16M6 21V5h12v16M6 9h12M6 13h12M10 21v-3h4v3' },
+  { cat:'Building',     title:'2-Story Building Project',    variant:4, imgBefore: 'pathum before.jpg', imgAfter: 'pathum after.jpg', icon:'M4 21h16M6 21V5h12v16M6 9h12M6 13h12M10 21v-3h4v3' },
+  { cat:'Ceiling',      title:'Ceiling Design',              variant:1, imgBefore: 'Celing 1 Before.jpg', imgAfter: 'Celing 1 After.jpg', icon:'M3 3h18M5 3v4h14V3M8 7v3m4-3v3m4-3v3M3 21h18' },
+  { cat:'Ceiling',      title:'Ceiling Design',              variant:2, imgBefore: 'Celing 2 before.jpg', imgAfter: 'Celing 2 after.jpg', icon:'M3 3h18M5 3v4h14V3M8 7v3m4-3v3m4-3v3M3 21h18' },
+  { cat:'Furniture',    title:'Furniture Design',            variant:1, imgBefore: 'Sofa Before.jpg', imgAfter: 'Sofa after.jpg', icon:'M5 11V8a3 3 0 016 0v3m-8 0h12a2 2 0 012 2v5H3v-5a2 2 0 012-2zM5 18v2m14-2v2' },
+  { cat:'Door',         title:'Door Design',                 variant:1, imgBefore: 'Door Before.jpg', imgAfter: 'Door after.jpg', icon:'M6 21V4a1 1 0 011-1h10a1 1 0 011 1v17M14.5 12h.01M6 21h12' },
+
+  /* ---------- 11 NEW PROJECTS WITH GITHUB UPLOADED FILENAMES ---------- */
+  { cat:'Furniture',    title:'Complex Chair',               variant:1, imgBefore:'chair before.jpg', imgAfter:'chair after.jpg', icon:'M7 3v8m0 0h10v4m-10 0v8m0-8h10v8' },
+  { cat:'Furniture',    title:'Coffee Table',                variant:1, imgBefore:'coffe table before.jpg', imgAfter:'coffe table after.jpg', icon:'M4 9h16c0 1.5-3.5 3-8 3s-8-1.5-8-3zM6 12v8m12-8v8M8 20h8' },
+  { cat:'Furniture',    title:'Sofa',                        variant:2, imgBefore:'Sofa Before.jpg', imgAfter:'Sofa after.jpg', icon:'M5 11v8a3 3 0 016 0v3m-8 0h12a2 2 0 012 2v5H3v-5a2 2 0 012-2zM5 18v2m14-2v2' },
+  { cat:'Furniture',    title:'Ergonomic Chair',             variant:1, imgBefore:'chair before.jpg', imgAfter:'chair after.jpg', icon:'M7 3c2 1 3 3 3 6v4m-5 0h10a2 2 0 012 2v4H5v-4a2 2 0 012-2zM12 19v2m-4 2h8' },
+  { cat:'Furniture',    title:'Chair and Stool',             variant:1, imgBefore:'chair set before.jpg', imgAfter:'chair set after.jpg', icon:'M5 12v8m14-8v8M9 20h6M7 12c1.5 2 4.5 2 6 0m-8 8v2m14-2v2' },
+  { cat:'Interior',     title:'Interior Design',             variant:1, imgBefore:'intirior before.jpg', imgAfter:'intirior after.jpg', icon:'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { cat:'Ceiling',      title:'Ceiling Light',               variant:3, imgBefore:'ceiling light Before.jpg', imgAfter:'ceiling light after.jpg', icon:'M12 3v4m-4 0h8a4 4 0 01-8 0zm4 4v4m-2 4h4' },
+  { cat:'Interior',     title:'Modern Interior Design',      variant:2, imgBefore:'intirior before.jpg', imgAfter:'intirior after.jpg', icon:'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' },
+  { cat:'Building',     title:'Concept Design 1',            variant:5, imgBefore:'Concept before.jpg', imgAfter:'Concept after.jpg', icon:'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
+  { cat:'Building',     title:'Concept Design 2',            variant:6, imgBefore:'Concept before.jpg', imgAfter:'Concept after.jpg', icon:'M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6' },
+  { cat:'Building',     title:'Concept Design 3',            variant:7, imgBefore:'Concept before.jpg', imgAfter:'Concept after.jpg', icon:'M4 21h16M6 21V5h12v16M6 9h12M6 13h12M10 21v-3h4v3' }
 ];
 
-/* category → gradient hues for placeholder art */
-const AFTER_GRADS = { Kitchen:'radial-gradient(circle at 60% 30%,#3a2f1d 0%,#241c10 55%,#141009 100%)', 'Living Room':'radial-gradient(circle at 45% 35%,#33271a 0%,#20180e 55%,#120e08 100%)', Bedroom:'radial-gradient(circle at 55% 40%,#2e2418 0%,#1d1710 55%,#100c07 100%)', Office:'radial-gradient(circle at 50% 30%,#362b1a 0%,#221a0f 55%,#130f08 100%)', Staircase:'radial-gradient(circle at 40% 35%,#33271a 0%,#20180e 55%,#120e08 100%)', Facade:'radial-gradient(circle at 45% 30%,#362b1a 0%,#221a0f 55%,#130f08 100%)', Building:'radial-gradient(circle at 50% 25%,#3a2e1c 0%,#241c10 55%,#141009 100%)', Ceiling:'radial-gradient(circle at 55% 35%,#2e2418 0%,#1d1710 55%,#100c07 100%)', Furniture:'radial-gradient(circle at 60% 40%,#33271a 0%,#20180e 55%,#120e08 100%)', Door:'radial-gradient(circle at 50% 35%,#362b1a 0%,#221a0f 55%,#130f08 100%)' };
+const AFTER_GRADS = { 
+  Kitchen:'radial-gradient(circle at 60% 30%,#3a2f1d 0%,#241c10 55%,#141009 100%)', 
+  'Living Room':'radial-gradient(circle at 45% 35%,#33271a 0%,#20180e 55%,#120e08 100%)', 
+  Bedroom:'radial-gradient(circle at 55% 40%,#2e2418 0%,#1d1710 55%,#100c07 100%)', 
+  Office:'radial-gradient(circle at 50% 30%,#362b1a 0%,#221a0f 55%,#130f08 100%)', 
+  Staircase:'radial-gradient(circle at 40% 35%,#33271a 0%,#20180e 55%,#120e08 100%)', 
+  Facade:'radial-gradient(circle at 45% 30%,#362b1a 0%,#221a0f 55%,#130f08 100%)', 
+  Building:'radial-gradient(circle at 50% 25%,#3a2e1c 0%,#241c10 55%,#141009 100%)', 
+  Ceiling:'radial-gradient(circle at 55% 35%,#2e2418 0%,#1d1710 55%,#100c07 100%)', 
+  Furniture:'radial-gradient(circle at 60% 40%,#33271a 0%,#20180e 55%,#120e08 100%)', 
+  Door:'radial-gradient(circle at 50% 35%,#362b1a 0%,#221a0f 55%,#130f08 100%)',
+  Interior:'radial-gradient(circle at 50% 32%,#38301f 0%,#251f13 55%,#15110a 100%)'
+};
 const BEFORE_GRADS = ['linear-gradient(135deg,#14181d 0%,#1f272e 55%,#0f1317 100%)','linear-gradient(135deg,#131a20 0%,#1e2a33 55%,#0e1216 100%)','linear-gradient(135deg,#151b21 0%,#222d36 55%,#0f1418 100%)','linear-gradient(135deg,#121a20 0%,#1e2c35 55%,#0e1216 100%)'];
 
-/* ---- Build cards ---- */
 const grid = document.getElementById('projGrid');
 PROJECTS.forEach((p, i) => {
   const afterBg  = AFTER_GRADS[p.cat];
   const beforeBg = BEFORE_GRADS[i % BEFORE_GRADS.length];
-  const afterArt  = p.imgAfter  ? `<img src="${p.imgAfter}" alt="Final Render">`
+  const afterArt  = p.imgAfter  ? `<img src="${encodeURI(p.imgAfter)}" alt="${p.title} — final render" loading="lazy" decoding="async">`
     : `<div class="ph-art" style="background:${afterBg}">
-         <svg width="110" height="110" viewBox="0 0 24 24" fill="none" stroke="#E3CD9A" stroke-width="0.9"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg>
-         <span class="text-sm tracking-[.35em] uppercase text-goldL/70">Final Render Placeholder</span>
+         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E3CD9A" stroke-width="1"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg>
+         <span class="text-[10px] tracking-[.3em] uppercase text-goldL/70">Final Render Placeholder</span>
        </div>`;
-  const beforeArt = p.imgBefore ? `<img src="${p.imgBefore}" alt="Revit 3D Model">`
+  const beforeArt = p.imgBefore ? `<img src="${encodeURI(p.imgBefore)}" alt="${p.title} — Revit 3D model" loading="lazy" decoding="async">`
     : `<div class="ph-art" style="background:${beforeBg}">
-         <svg width="110" height="110" viewBox="0 0 24 24" fill="none" stroke="#7dd3fc" stroke-width="0.9"><path d="${p.icon}"/></svg>
-         <span class="text-sm tracking-[.35em] uppercase text-cyan-300/60">Revit 3D Model Placeholder</span>
+         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#7dd3fc" stroke-width="1"><path d="${p.icon}"/></svg>
+         <span class="text-[10px] tracking-[.3em] uppercase text-cyan-300/60">Revit 3D Model Placeholder</span>
        </div>`;
 
   const card = document.createElement('article');
-  card.className = 'proj-card card-lift rounded-3xl border border-line bg-coal overflow-hidden rv';
+  card.className = 'proj-card card-lift rounded-3xl border border-line bg-coal overflow-hidden';
   card.dataset.cat = p.cat;
-  card.setAttribute('data-rv', '');
   card.innerHTML = `
     <div class="ba rounded-t-3xl">
       <div class="layer">${afterArt}</div>
@@ -472,17 +543,31 @@ PROJECTS.forEach((p, i) => {
       <span class="tag tag-after">Final Render</span>
       <span class="hint">← Drag →</span>
     </div>
-    <div class="p-7 md:p-8">
+    <div class="p-6">
       <div class="flex items-center justify-between gap-3">
-        <span class="text-xs tracking-[.3em] uppercase text-gold">${p.cat}</span>
+        <span class="text-[10px] tracking-[.3em] uppercase text-gold">${p.cat}</span>
         <span class="text-[10px] tracking-widest uppercase text-white/25">No. ${String(i+1).padStart(2,'0')}${p.variant>1?' · V'+p.variant:''}</span>
       </div>
-      <h3 class="font-display font-bold text-xl md:text-2xl mt-1.5">${p.title}</h3>
+      <h3 class="font-display font-bold text-lg mt-1">${p.title}</h3>
     </div>`;
+  card.querySelectorAll('.layer img').forEach(img => {
+    img.addEventListener('error', () => {
+      const isAfterImage = !img.closest('.before-layer');
+      const placeholder = document.createElement('div');
+      placeholder.className = 'ph-art px-6 text-center';
+      placeholder.style.background = isAfterImage ? afterBg : beforeBg;
+      placeholder.setAttribute('role', 'img');
+      placeholder.setAttribute('aria-label', `${p.title}: ${isAfterImage ? 'final render' : 'Revit model'} image unavailable`);
+      const label = document.createElement('span');
+      label.className = 'text-[10px] tracking-[.3em] uppercase text-white/60';
+      label.textContent = `${isAfterImage ? 'Final render' : 'Revit model'} image unavailable`;
+      placeholder.appendChild(label);
+      img.replaceWith(placeholder);
+    }, { once:true });
+  });
   grid.appendChild(card);
 });
 
-/* ---- Filter chips ---- */
 const cats = ['All', ...new Set(PROJECTS.map(p => p.cat))];
 const filtersEl = document.getElementById('filters');
 cats.forEach((c, i) => {
@@ -503,7 +588,6 @@ cats.forEach((c, i) => {
   filtersEl.appendChild(b);
 });
 
-/* ---------- Preloader ---------- */
 window.addEventListener('load', () => {
   const fill = document.getElementById('loaderFill');
   fill.style.transition = 'width .9s cubic-bezier(.4,0,.2,1)';
@@ -511,14 +595,12 @@ window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('loader').classList.add('done'), 1050);
 });
 
-/* ---------- Nav ---------- */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), { passive:true });
 const burger = document.getElementById('burger'), menu = document.getElementById('mobileMenu');
 burger.addEventListener('click', () => menu.classList.toggle('hidden'));
 menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
 
-/* ---------- BEFORE / AFTER sliders ---------- */
 document.querySelectorAll('.ba').forEach(ba => {
   const beforeLayer = ba.querySelector('.before-layer');
   const clip = ba.querySelector('.clip');
@@ -551,7 +633,6 @@ document.querySelectorAll('.ba').forEach(ba => {
   });
 });
 
-/* ---------- GSAP reveals & bars ---------- */
 gsap.registerPlugin(ScrollTrigger);
 document.querySelectorAll('[data-rv]').forEach((el, i) => {
   gsap.to(el, { opacity:1, y:0, duration:1, ease:'power3.out',
